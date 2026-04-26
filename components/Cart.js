@@ -53,7 +53,7 @@ export default function Cart({ items, total, onUpdateQuantity, onRemoveItem }) {
 
     try {
       if (!supabase) {
-        throw new Error('Supabase client is not configured.');
+        throw new Error('Supabase client is not configured. Check NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.');
       }
 
       const { data: order, error: orderError } = await supabase
@@ -68,6 +68,7 @@ export default function Cart({ items, total, onUpdateQuantity, onRemoveItem }) {
         .single();
 
       if (orderError) {
+        console.error('Supabase order insert error:', orderError);
         throw orderError;
       }
 
@@ -81,16 +82,17 @@ export default function Cart({ items, total, onUpdateQuantity, onRemoveItem }) {
       const { error: orderItemsError } = await supabase.from('order_items').insert(orderItems);
 
       if (orderItemsError) {
+        console.error('Supabase order_items insert error:', orderItemsError);
         throw orderItemsError;
       }
     } catch (error) {
       console.error('Failed to save order in Supabase:', error);
       setCheckoutError('تعذر حفظ الطلب في قاعدة البيانات، سيتم إرسال الطلب عبر واتساب.');
-    } finally {
-      window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank', 'noopener,noreferrer');
-      setIsSubmitting(false);
-      setIsModalOpen(false);
     }
+
+    window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank', 'noopener,noreferrer');
+    setIsSubmitting(false);
+    setIsModalOpen(false);
   };
 
   return (
