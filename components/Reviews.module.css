@@ -1,0 +1,19 @@
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.7rem;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid rgba(200, 164, 98, 0.35);
+  border-radius: 12px;
+  padding: 1rem;
+  color: var(--coffee);
+}
+
+@media (min-width: 700px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

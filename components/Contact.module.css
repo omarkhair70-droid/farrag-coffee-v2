@@ -1,0 +1,13 @@
+.info {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.info p {
+  margin: 0;
+}
+
+.info a {
+  color: var(--coffee);
+  text-decoration: underline;
+}

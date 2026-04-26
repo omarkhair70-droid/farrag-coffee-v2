@@ -1,0 +1,21 @@
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.7rem;
+}
+
+.placeholder {
+  border: 1px dashed var(--gold);
+  border-radius: 12px;
+  min-height: 120px;
+  display: grid;
+  place-items: center;
+  color: var(--coffee-soft);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+@media (min-width: 700px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

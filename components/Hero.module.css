@@ -1,0 +1,32 @@
+.hero {
+  text-align: center;
+  background: linear-gradient(180deg, rgba(200, 164, 98, 0.2), rgba(255, 255, 255, 0.5));
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: var(--coffee);
+}
+
+.badge {
+  display: inline-block;
+  background: rgba(200, 164, 98, 0.2);
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+  padding: 0.3rem 0.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.subtext {
+  max-width: 600px;
+  margin: 0.8rem auto;
+  line-height: 1.8;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+}

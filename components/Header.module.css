@@ -1,0 +1,24 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: var(--coffee);
+}
+
+.nav {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.nav a {
+  color: var(--coffee-soft);
+  font-weight: 600;
+}
