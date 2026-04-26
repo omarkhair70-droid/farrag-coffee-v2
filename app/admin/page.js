@@ -47,14 +47,13 @@ export default function AdminDashboardPage() {
 
       const normalizeOrder = (order) => ({
         ...order,
-        customer_name: order.customer_name || order.name || null
+        name: order.name || null
       });
 
       const { data: joinedOrders, error: joinedOrdersError } = await supabase
         .from('orders')
         .select(`
           id,
-          customer_name,
           name,
           phone,
           notes,
@@ -85,7 +84,7 @@ export default function AdminDashboardPage() {
 
       const { data: ordersData, error: ordersError } = await supabase
         .from('orders')
-        .select('id, customer_name, name, phone, notes, total, created_at')
+        .select('id, name, phone, notes, total, created_at')
         .order('created_at', { ascending: false });
 
       if (ordersError) {
@@ -148,7 +147,7 @@ export default function AdminDashboardPage() {
             {orders.map((order) => (
               <article key={order.id} className={styles.orderCard}>
                 <div className={styles.orderTop}>
-                  <h2 className={styles.customerName}>{order.customer_name || 'بدون اسم'}</h2>
+                  <h2 className={styles.customerName}>{order.name || 'بدون اسم'}</h2>
                   <a
                     className={styles.whatsappBtn}
                     href={toWhatsappLink(order.phone)}
