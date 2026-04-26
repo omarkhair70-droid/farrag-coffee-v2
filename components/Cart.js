@@ -31,6 +31,7 @@ export default function Cart({ items, total, onUpdateQuantity, onRemoveItem }) {
   const [phone, setPhone] = useState('');
   const [notes, setNotes] = useState('');
   const [checkoutError, setCheckoutError] = useState('');
+  const [debugMessage, setDebugMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const subtotal = useMemo(() => total, [total]);
@@ -38,6 +39,7 @@ export default function Cart({ items, total, onUpdateQuantity, onRemoveItem }) {
   const handleCheckout = async (event) => {
     event.preventDefault();
     setCheckoutError('');
+    setDebugMessage('');
     setIsSubmitting(true);
 
     const message = encodeURIComponent(
@@ -50,6 +52,9 @@ export default function Cart({ items, total, onUpdateQuantity, onRemoveItem }) {
         total
       })
     );
+
+    console.log('NEXT_PUBLIC_SUPABASE_URL exists:', Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL));
+    console.log('NEXT_PUBLIC_SUPABASE_ANON_KEY exists:', Boolean(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY));
 
     try {
       if (!supabase) {
@@ -67,8 +72,10 @@ export default function Cart({ items, total, onUpdateQuantity, onRemoveItem }) {
         .select('id')
         .single();
 
+      console.log('Supabase orders insert result:', order);
+      console.log('Supabase orders insert error:', orderError);
+
       if (orderError) {
-        console.error('Supabase order insert error:', orderError);
         throw orderError;
       }
 
@@ -79,15 +86,27 @@ export default function Cart({ items, total, onUpdateQuantity, onRemoveItem }) {
         price: item.price
       }));
 
-      const { error: orderItemsError } = await supabase.from('order_items').insert(orderItems);
+      const { data: orderItemsResult, error: orderItemsError } = await supabase
+        .from('order_items')
+        .insert(orderItems)
+        .select('id');
+
+      console.log('Supabase order_items insert result:', orderItemsResult);
+      console.log('Supabase order_items insert error:', orderItemsError);
 
       if (orderItemsError) {
-        console.error('Supabase order_items insert error:', orderItemsError);
         throw orderItemsError;
       }
+
+      setDebugMessage('تم حفظ الطلب');
+      setTimeout(() => setDebugMessage(''), 5000);
     } catch (error) {
       console.error('Failed to save order in Supabase:', error);
+      const errorMessage = error?.message || 'Unknown error';
+      const debugText = `لم يتم حفظ الطلب: ${errorMessage}`;
       setCheckoutError('تعذر حفظ الطلب في قاعدة البيانات، سيتم إرسال الطلب عبر واتساب.');
+      setDebugMessage(debugText);
+      setTimeout(() => setDebugMessage(''), 7000);
     }
 
     window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank', 'noopener,noreferrer');
@@ -173,6 +192,8 @@ export default function Cart({ items, total, onUpdateQuantity, onRemoveItem }) {
           </motion.div>
         </>
       )}
+
+      {debugMessage ? <p className={styles.debugMessage}>{debugMessage}</p> : null}
 
       <AnimatePresence>
         {isModalOpen && (
