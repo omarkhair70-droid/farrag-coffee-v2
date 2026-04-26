@@ -6,7 +6,17 @@
   flex-wrap: wrap;
 }
 
-.logo {
+.logoWrap {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.logoImage {
+  object-fit: contain;
+}
+
+.logoText {
   font-size: 1.7rem;
   font-weight: 800;
   color: var(--coffee);

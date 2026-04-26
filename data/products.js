@@ -1,3 +1,6 @@
+const sadaImage = '/images/product-sada.jpeg';
+const mahmoogImage = '/images/product-mahmoog.jpeg';
+
 const products = [
   {
     id: 'brazilian-plain',
@@ -6,7 +9,7 @@ const products = [
     type: 'سادة',
     weight: '250 جم',
     price: 60,
-    image: 'https://images.unsplash.com/photo-1497935586047-9397fe4794c0?auto=format&fit=crop&w=800&q=80',
+    image: sadaImage,
     description: 'تحميص متوسط بنكهة متوازنة وقوام ناعم مناسب للقهوة اليومية.'
   },
   {
@@ -16,7 +19,7 @@ const products = [
     type: 'محوج',
     weight: '250 جم',
     price: 60,
-    image: 'https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=800&q=80',
+    image: mahmoogImage,
     description: 'خلطة برازيلي محوجة بعطر غني ولمسة بهارات دافئة.'
   },
   {
@@ -26,7 +29,7 @@ const products = [
     type: 'سادة',
     weight: '250 جم',
     price: 50,
-    image: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=800&q=80',
+    image: sadaImage,
     description: 'قهوة تركي سادة بطحن ناعم وقوام مركز لعشاق المذاق الصافي.'
   },
   {
@@ -36,7 +39,7 @@ const products = [
     type: 'محوج',
     weight: '250 جم',
     price: 50,
-    image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80',
+    image: mahmoogImage,
     description: 'قهوة تركي محوجة بطابع شرقي فاخر ورائحة مميزة.'
   },
   {
@@ -46,7 +49,7 @@ const products = [
     type: 'سادة',
     weight: '250 جم',
     price: 80,
-    image: 'https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=800&q=80',
+    image: sadaImage,
     description: 'بن يمني فاخر بنغمات عميقة وحموضة خفيفة متوازنة.'
   },
   {
@@ -56,7 +59,7 @@ const products = [
     type: 'محوج',
     weight: '250 جم',
     price: 85,
-    image: 'https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=800&q=80',
+    image: mahmoogImage,
     description: 'خلطة يمني محوجة بنكهة قوية وعمق واضح في كل فنجان.'
   },
   {
@@ -66,7 +69,7 @@ const products = [
     type: 'محمص',
     weight: '1000 جم',
     price: 300,
-    image: 'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=800&q=80',
+    image: mahmoogImage,
     description: 'حبوب إسبريسو احترافية بكريمة ثابتة ونكهة شوكولاتة مكثفة.'
   }
 ];

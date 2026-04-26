@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import styles from './Header.module.css';
 import { motion } from 'framer-motion';
 import { premiumButtonMotion } from '../lib/motion';
@@ -12,7 +13,10 @@ const navLinks = [
 export default function Header() {
   return (
     <header className={`${styles.header} section`}>
-      <div className={styles.logo}>بن فراج</div>
+      <div className={styles.logoWrap}>
+        <Image src="/images/logo.png" alt="Farrag Coffee" width={56} height={56} className={styles.logoImage} priority />
+        <span className={styles.logoText}>بن فراج</span>
+      </div>
       <nav className={styles.nav}>
         {navLinks.map((link) => (
           <a key={link.label} href={link.href}>
