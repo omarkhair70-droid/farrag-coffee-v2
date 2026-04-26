@@ -45,18 +45,57 @@ export default function AdminDashboardPage() {
       setLoading(true);
       setError('');
 
-      const { data: ordersData, error: ordersError } = await supabase
+      const normalizeOrder = (order) => ({
+        ...order,
+        customer_name: order.customer_name || order.name || null
+      });
+
+      const { data: joinedOrders, error: joinedOrdersError } = await supabase
         .from('orders')
-        .select('id, customer_name, phone, notes, total, created_at')
+        .select(`
+          id,
+          customer_name,
+          name,
+          phone,
+          notes,
+          total,
+          created_at,
+          order_items (
+            id,
+            order_id,
+            product_name,
+            quantity,
+            price
+          )
+        `)
         .order('created_at', { ascending: false });
 
-      if (ordersError) {
-        setError('تعذر تحميل الطلبات حالياً.');
+      if (!joinedOrdersError) {
+        const normalizedOrders = (joinedOrders || []).map(normalizeOrder);
+        const mappedItems = normalizedOrders.reduce((acc, order) => {
+          acc[order.id] = order.order_items || [];
+          return acc;
+        }, {});
+
+        setOrders(normalizedOrders);
+        setItemsByOrder(mappedItems);
         setLoading(false);
         return;
       }
 
-      const orderIds = (ordersData || []).map((order) => order.id);
+      const { data: ordersData, error: ordersError } = await supabase
+        .from('orders')
+        .select('id, customer_name, name, phone, notes, total, created_at')
+        .order('created_at', { ascending: false });
+
+      if (ordersError) {
+        setError(`تعذر تحميل الطلبات حالياً: ${ordersError.message}`);
+        setLoading(false);
+        return;
+      }
+
+      const normalizedOrders = (ordersData || []).map(normalizeOrder);
+      const orderIds = normalizedOrders.map((order) => order.id);
       let mappedItems = {};
 
       if (orderIds.length) {
@@ -67,7 +106,7 @@ export default function AdminDashboardPage() {
           .order('id', { ascending: true });
 
         if (itemsError) {
-          setError('تم تحميل الطلبات لكن تعذر تحميل تفاصيل الأصناف.');
+          setError(`تم تحميل الطلبات لكن تعذر تحميل تفاصيل الأصناف: ${itemsError.message}`);
         } else {
           mappedItems = (itemsData || []).reduce((acc, item) => {
             const key = item.order_id;
@@ -78,7 +117,7 @@ export default function AdminDashboardPage() {
         }
       }
 
-      setOrders(ordersData || []);
+      setOrders(normalizedOrders);
       setItemsByOrder(mappedItems);
       setLoading(false);
     };
