@@ -122,7 +122,13 @@ export default function ProductCatalog({ products, onAddToCart }) {
           return (
             <motion.article key={product.id} className={styles.card} {...cardAnimation} {...cardHover}>
               <div className={styles.imageWrap}>
-                <Image src={product.image} alt={product.name} fill sizes="(max-width: 768px) 100vw, 33vw" />
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  fill
+                  className={styles.productImage}
+                  sizes="(max-width: 699px) 100vw, (max-width: 999px) 50vw, 33vw"
+                />
               </div>
               <div className={styles.content}>
                 <h3>{product.name}</h3>
