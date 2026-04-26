@@ -1,0 +1,144 @@
+.page {
+  padding: 1rem 0 2rem;
+}
+
+.section {
+  width: min(1100px, 94vw);
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(200, 164, 98, 0.35);
+  border-radius: 16px;
+  padding: 1rem;
+  box-shadow: var(--shadow);
+}
+
+.header {
+  margin-bottom: 1rem;
+}
+
+.title {
+  margin: 0;
+  color: var(--coffee);
+  font-size: 1.4rem;
+}
+
+.subtitle {
+  margin: 0.4rem 0 0;
+  color: var(--coffee-soft);
+  font-size: 0.95rem;
+}
+
+.stateBox {
+  margin: 1rem 0;
+  padding: 0.9rem;
+  border-radius: 12px;
+  background: rgba(248, 241, 231, 0.9);
+  border: 1px dashed rgba(91, 58, 34, 0.3);
+}
+
+.list {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.orderCard {
+  border: 1px solid rgba(200, 164, 98, 0.4);
+  border-radius: 14px;
+  background: #fff;
+  padding: 0.9rem;
+}
+
+.orderTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.7rem;
+  margin-bottom: 0.8rem;
+}
+
+.customerName {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--coffee);
+}
+
+.whatsappBtn {
+  background: #22c55e;
+  color: #fff;
+  border-radius: 999px;
+  padding: 0.45rem 0.85rem;
+  font-weight: 700;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.infoGrid {
+  display: grid;
+  gap: 0.4rem;
+  font-size: 0.94rem;
+  margin-bottom: 0.6rem;
+}
+
+.infoGrid p {
+  margin: 0;
+}
+
+.notes {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.itemsWrap {
+  margin-top: 0.8rem;
+  padding-top: 0.7rem;
+  border-top: 1px dashed rgba(91, 58, 34, 0.25);
+}
+
+.itemsTitle {
+  margin: 0 0 0.55rem;
+  font-size: 1rem;
+  color: var(--coffee-soft);
+}
+
+.itemsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.itemRow {
+  display: grid;
+  gap: 0.25rem;
+  background: rgba(248, 241, 231, 0.58);
+  border-radius: 10px;
+  padding: 0.55rem;
+  font-size: 0.9rem;
+}
+
+.noItems {
+  margin: 0;
+  font-size: 0.88rem;
+  color: rgba(47, 36, 26, 0.8);
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding: 1.3rem;
+  }
+
+  .orderCard {
+    padding: 1.1rem;
+  }
+
+  .infoGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .itemRow {
+    grid-template-columns: 1.5fr 1fr 1fr;
+    align-items: center;
+  }
+}
