@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import styles from './ProductCatalog.module.css';
@@ -14,6 +14,21 @@ export default function ProductCatalog({ products, onAddToCart }) {
   const [activeCategory, setActiveCategory] = useState(ALL_FILTER);
   const [searchTerm, setSearchTerm] = useState('');
   const [quantities, setQuantities] = useState({});
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return undefined;
+    }
+
+    const mediaQuery = window.matchMedia('(max-width: 699px)');
+    const updateIsMobile = () => setIsMobile(mediaQuery.matches);
+
+    updateIsMobile();
+    mediaQuery.addEventListener('change', updateIsMobile);
+
+    return () => mediaQuery.removeEventListener('change', updateIsMobile);
+  }, []);
 
   const categories = useMemo(
     () => [
@@ -50,13 +65,19 @@ export default function ProductCatalog({ products, onAddToCart }) {
 
   const getQuantity = (productId) => quantities[productId] ?? 1;
 
+  const sectionAnimation = isMobile
+    ? { initial: false, animate: { opacity: 1, y: 0 } }
+    : {
+        initial: sectionReveal.initial,
+        whileInView: sectionReveal.whileInView,
+        viewport: sectionReveal.viewport
+      };
+
   return (
     <motion.section
       id="products"
       className="section"
-      initial={sectionReveal.initial}
-      whileInView={sectionReveal.whileInView}
-      viewport={sectionReveal.viewport}
+      {...sectionAnimation}
       transition={sectionReveal.transition}
     >
       <div className={styles.headerRow}>
@@ -90,9 +111,16 @@ export default function ProductCatalog({ products, onAddToCart }) {
       <div className={styles.grid}>
         {filteredProducts.map((product) => {
           const quantity = getQuantity(product.id);
+          const cardAnimation = isMobile
+            ? { initial: false, animate: { opacity: 1, y: 0 } }
+            : {
+                initial: { opacity: 0, y: 24 },
+                whileInView: { opacity: 1, y: 0 },
+                viewport: { once: true, amount: 0.15 }
+              };
 
           return (
-            <motion.article key={product.id} className={styles.card} {...cardHover}>
+            <motion.article key={product.id} className={styles.card} {...cardAnimation} {...cardHover}>
               <div className={styles.imageWrap}>
                 <Image src={product.image} alt={product.name} fill sizes="(max-width: 768px) 100vw, 33vw" />
               </div>
