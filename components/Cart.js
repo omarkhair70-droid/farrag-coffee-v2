@@ -53,7 +53,11 @@ export default function Cart({ items, total, onUpdateQuantity, onRemoveItem }) {
 
     try {
       if (!supabase) {
-        throw new Error('Supabase client is not configured. Check NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.');
+        const missingEnvVars = [
+          !process.env.NEXT_PUBLIC_SUPABASE_URL ? 'NEXT_PUBLIC_SUPABASE_URL' : null,
+          !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ? 'NEXT_PUBLIC_SUPABASE_ANON_KEY' : null
+        ].filter(Boolean);
+        throw new Error(`Supabase client is not configured. Missing env var(s): ${missingEnvVars.join(', ')}`);
       }
 
       const { data: order, error: orderError } = await supabase
@@ -69,7 +73,7 @@ export default function Cart({ items, total, onUpdateQuantity, onRemoveItem }) {
 
       if (orderError) {
         console.error('Supabase order insert error:', orderError);
-        throw orderError;
+        throw new Error(`orders insert failed: ${orderError.message}`);
       }
 
       const orderItems = items.map((item) => ({
@@ -83,11 +87,11 @@ export default function Cart({ items, total, onUpdateQuantity, onRemoveItem }) {
 
       if (orderItemsError) {
         console.error('Supabase order_items insert error:', orderItemsError);
-        throw orderItemsError;
+        throw new Error(`order_items insert failed: ${orderItemsError.message}`);
       }
     } catch (error) {
       console.error('Failed to save order in Supabase:', error);
-      setCheckoutError('تعذر حفظ الطلب في قاعدة البيانات، سيتم إرسال الطلب عبر واتساب.');
+      setCheckoutError(`تعذر حفظ الطلب في قاعدة البيانات. Supabase error: ${error.message}`);
     }
 
     window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank', 'noopener,noreferrer');
