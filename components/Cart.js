@@ -37,6 +37,7 @@ export default function Cart({ items, total, onUpdateQuantity, onRemoveItem }) {
 
   const handleCheckout = async (event) => {
     event.preventDefault();
+    console.log('handleCheckout executed');
     setCheckoutError('');
     setIsSubmitting(true);
 
@@ -53,6 +54,7 @@ export default function Cart({ items, total, onUpdateQuantity, onRemoveItem }) {
 
     try {
       if (!supabase) {
+        console.error('Supabase client not initialized');
         const missingEnvVars = [
           !process.env.NEXT_PUBLIC_SUPABASE_URL ? 'NEXT_PUBLIC_SUPABASE_URL' : null,
           !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ? 'NEXT_PUBLIC_SUPABASE_ANON_KEY' : null
@@ -60,24 +62,22 @@ export default function Cart({ items, total, onUpdateQuantity, onRemoveItem }) {
         throw new Error(`Supabase client is not configured. Missing env var(s): ${missingEnvVars.join(', ')}`);
       }
 
-      const { data: order, error: orderError } = await supabase
+      const name = customerName;
+      console.log('Attempting to insert order', { name, phone, notes, total });
+      const { data, error } = await supabase
         .from('orders')
-        .insert({
-          name: customerName,
-          phone,
-          notes,
-          total
-        })
+        .insert([{ name, phone, notes, total }])
         .select('id')
         .single();
+      console.log('Orders insert result:', data, error);
 
-      if (orderError) {
-        console.error('Supabase order insert error:', orderError);
-        throw new Error(`orders insert failed: ${orderError.message}`);
+      if (error) {
+        console.error('Supabase order insert error:', error);
+        throw new Error(`orders insert failed: ${error.message}`);
       }
 
       const orderItems = items.map((item) => ({
-        order_id: order.id,
+        order_id: data.id,
         product_name: item.name,
         quantity: item.quantity,
         price: item.price
