@@ -1,3 +1,49 @@
+.headerRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin-bottom: 1rem;
+}
+
+.subtitle {
+  margin: 0;
+  color: #6f5b4b;
+}
+
+.toolbar {
+  display: grid;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.search {
+  width: 100%;
+  border: 1px solid rgba(200, 164, 98, 0.6);
+  border-radius: 12px;
+  padding: 0.7rem;
+  background: #fff;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.filterBtn {
+  border: 1px solid rgba(200, 164, 98, 0.8);
+  background: #fff;
+  color: var(--coffee);
+  border-radius: 999px;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+}
+
+.filterBtnActive {
+  background: var(--coffee);
+  color: #fff;
+}
+
 .grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -6,14 +52,15 @@
 
 .card {
   border: 1px solid rgba(200, 164, 98, 0.4);
-  border-radius: 16px;
+  border-radius: 18px;
   overflow: hidden;
   background: #fff;
+  box-shadow: 0 10px 22px rgba(61, 38, 20, 0.08);
 }
 
 .imageWrap {
   position: relative;
-  height: 180px;
+  height: 190px;
 }
 
 .content {
@@ -25,15 +72,41 @@
   color: var(--coffee);
 }
 
-.content p {
-  margin: 0.4rem 0;
+.description {
+  margin: 0.5rem 0;
+  color: #664f3b;
+  font-size: 0.95rem;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.tags span {
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  background: #f5ead9;
+  font-size: 0.8rem;
 }
 
 .meta {
+  margin: 0.8rem 0;
+  font-size: 1.05rem;
+}
+
+.actions {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 0.7rem;
+  gap: 0.6rem;
+}
+
+.qtyControls {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 
 @media (min-width: 700px) {

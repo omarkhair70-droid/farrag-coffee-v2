@@ -78,3 +78,17 @@ main {
     font-size: 1.7rem;
   }
 }
+
+
+.toast {
+  position: fixed;
+  bottom: 5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(61, 38, 20, 0.95);
+  color: #fff;
+  padding: 0.7rem 1rem;
+  border-radius: 999px;
+  z-index: 60;
+  box-shadow: var(--shadow);
+}
