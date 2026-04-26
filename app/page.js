@@ -1,13 +1,13 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import Header from '@/components/Header';
-import Hero from '@/components/Hero';
-import ProductCatalog from '@/components/ProductCatalog';
-import Cart from '@/components/Cart';
-import MenuPreview from '@/components/MenuPreview';
-import Reviews from '@/components/Reviews';
-import Contact from '@/components/Contact';
+import Header from '../components/Header';
+import Hero from '../components/Hero';
+import ProductCatalog from '../components/ProductCatalog';
+import Cart from '../components/Cart';
+import MenuPreview from '../components/MenuPreview';
+import Reviews from '../components/Reviews';
+import Contact from '../components/Contact';
 
 const products = [
   { id: 1, name: 'برازيلي سادة', category: 'قهوة عربية', weight: '250 جم', price: 60, image: 'https://images.unsplash.com/photo-1497935586047-9397fe4794c0?auto=format&fit=crop&w=800&q=80' },
