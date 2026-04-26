@@ -6,25 +6,36 @@ import { motion } from 'framer-motion';
 import styles from './ProductCatalog.module.css';
 import { addToCartMotion, cardHover, premiumButtonMotion, sectionReveal } from '../lib/motion';
 
+const ALL_FILTER = 'all';
+
+const normalize = (value = '') => value.toString().trim().toLowerCase();
+
 export default function ProductCatalog({ products, onAddToCart }) {
-  const [activeCategory, setActiveCategory] = useState('الكل');
+  const [activeCategory, setActiveCategory] = useState(ALL_FILTER);
   const [searchTerm, setSearchTerm] = useState('');
   const [quantities, setQuantities] = useState({});
 
   const categories = useMemo(
-    () => ['الكل', ...new Set(products.map((product) => product.category))],
+    () => [
+      { id: ALL_FILTER, label: 'الكل' },
+      ...[...new Set(products.map((product) => product.category))].map((category) => ({
+        id: category,
+        label: category
+      }))
+    ],
     [products]
   );
 
   const filteredProducts = useMemo(() => {
+    const term = normalize(searchTerm);
+
     return products.filter((product) => {
-      const matchesCategory = activeCategory === 'الكل' || product.category === activeCategory;
-      const term = searchTerm.trim().toLowerCase();
+      const matchesCategory = activeCategory === ALL_FILTER || product.category === activeCategory;
       const matchesSearch =
         !term ||
-        product.name.toLowerCase().includes(term) ||
-        product.category.toLowerCase().includes(term) ||
-        product.type.toLowerCase().includes(term);
+        normalize(product.name).includes(term) ||
+        normalize(product.category).includes(term) ||
+        normalize(product.type).includes(term);
 
       return matchesCategory && matchesSearch;
     });
@@ -60,16 +71,17 @@ export default function ProductCatalog({ products, onAddToCart }) {
           value={searchTerm}
           onChange={(event) => setSearchTerm(event.target.value)}
           aria-label="بحث المنتجات"
+          autoComplete="off"
         />
         <div className={styles.filters}>
           {categories.map((category) => (
             <motion.button
-              key={category}
-              className={`${styles.filterBtn} ${activeCategory === category ? styles.filterBtnActive : ''}`}
-              onClick={() => setActiveCategory(category)}
+              key={category.id}
+              className={`${styles.filterBtn} ${activeCategory === category.id ? styles.filterBtnActive : ''}`}
+              onClick={() => setActiveCategory(category.id)}
               {...premiumButtonMotion}
             >
-              {category}
+              {category.label}
             </motion.button>
           ))}
         </div>
@@ -126,6 +138,10 @@ export default function ProductCatalog({ products, onAddToCart }) {
           );
         })}
       </div>
+
+      {!filteredProducts.length ? (
+        <p className={styles.emptyState}>لا توجد منتجات مطابقة حالياً. جرّب تغيير الفئة أو البحث.</p>
+      ) : null}
     </motion.section>
   );
 }

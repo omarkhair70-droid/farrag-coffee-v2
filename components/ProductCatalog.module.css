@@ -51,6 +51,8 @@
 }
 
 .card {
+  display: flex;
+  flex-direction: column;
   border: 1px solid rgba(200, 164, 98, 0.4);
   border-radius: 18px;
   overflow: hidden;
@@ -98,15 +100,36 @@
 
 .actions {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: space-between;
   gap: 0.6rem;
+  flex-wrap: wrap;
 }
 
 .qtyControls {
   display: flex;
   align-items: center;
   gap: 0.4rem;
+}
+
+.emptyState {
+  margin: 0.9rem 0 0;
+  color: #6f5b4b;
+}
+
+@media (max-width: 699px) {
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .actions :global(.btn) {
+    width: 100%;
+  }
+
+  .qtyControls {
+    justify-content: space-between;
+  }
 }
 
 @media (min-width: 700px) {
