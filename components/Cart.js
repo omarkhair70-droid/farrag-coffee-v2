@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import styles from './Cart.module.css';
 import { cartPanelTransition, premiumButtonMotion, sectionReveal } from '../lib/motion';
+import { supabase } from '../lib/supabase';
 
 const whatsappNumber = '201005009908';
 
@@ -29,11 +30,15 @@ export default function Cart({ items, total, onUpdateQuantity, onRemoveItem }) {
   const [customerName, setCustomerName] = useState('');
   const [phone, setPhone] = useState('');
   const [notes, setNotes] = useState('');
+  const [checkoutError, setCheckoutError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const subtotal = useMemo(() => total, [total]);
 
-  const handleCheckout = (event) => {
+  const handleCheckout = async (event) => {
     event.preventDefault();
+    setCheckoutError('');
+    setIsSubmitting(true);
 
     const message = encodeURIComponent(
       buildMessage({
@@ -46,8 +51,46 @@ export default function Cart({ items, total, onUpdateQuantity, onRemoveItem }) {
       })
     );
 
-    window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank', 'noopener,noreferrer');
-    setIsModalOpen(false);
+    try {
+      if (!supabase) {
+        throw new Error('Supabase client is not configured.');
+      }
+
+      const { data: order, error: orderError } = await supabase
+        .from('orders')
+        .insert({
+          name: customerName,
+          phone,
+          notes,
+          total
+        })
+        .select('id')
+        .single();
+
+      if (orderError) {
+        throw orderError;
+      }
+
+      const orderItems = items.map((item) => ({
+        order_id: order.id,
+        product_name: item.name,
+        quantity: item.quantity,
+        price: item.price
+      }));
+
+      const { error: orderItemsError } = await supabase.from('order_items').insert(orderItems);
+
+      if (orderItemsError) {
+        throw orderItemsError;
+      }
+    } catch (error) {
+      console.error('Failed to save order in Supabase:', error);
+      setCheckoutError('تعذر حفظ الطلب في قاعدة البيانات، سيتم إرسال الطلب عبر واتساب.');
+    } finally {
+      window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank', 'noopener,noreferrer');
+      setIsSubmitting(false);
+      setIsModalOpen(false);
+    }
   };
 
   return (
@@ -161,8 +204,9 @@ export default function Cart({ items, total, onUpdateQuantity, onRemoveItem }) {
                 ملاحظات
                 <textarea rows={3} value={notes} onChange={(event) => setNotes(event.target.value)} />
               </label>
-              <motion.button className="btn btnPrimary" type="submit" {...premiumButtonMotion}>
-                إرسال الطلب على واتساب
+              {checkoutError ? <p>{checkoutError}</p> : null}
+              <motion.button className="btn btnPrimary" type="submit" disabled={isSubmitting} {...premiumButtonMotion}>
+                {isSubmitting ? 'جاري إرسال الطلب...' : 'إرسال الطلب على واتساب'}
               </motion.button>
             </motion.form>
           </motion.div>
