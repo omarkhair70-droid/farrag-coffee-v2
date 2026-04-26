@@ -2,7 +2,9 @@
 
 import { useMemo, useState } from 'react';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 import styles from './ProductCatalog.module.css';
+import { addToCartMotion, cardHover, premiumButtonMotion, sectionReveal } from '../lib/motion';
 
 export default function ProductCatalog({ products, onAddToCart }) {
   const [activeCategory, setActiveCategory] = useState('الكل');
@@ -38,7 +40,14 @@ export default function ProductCatalog({ products, onAddToCart }) {
   const getQuantity = (productId) => quantities[productId] ?? 1;
 
   return (
-    <section id="products" className="section">
+    <motion.section
+      id="products"
+      className="section"
+      initial={sectionReveal.initial}
+      whileInView={sectionReveal.whileInView}
+      viewport={sectionReveal.viewport}
+      transition={sectionReveal.transition}
+    >
       <div className={styles.headerRow}>
         <h2 className="sectionTitle">كتالوج المنتجات</h2>
         <p className={styles.subtitle}>اختيارات فاخرة محمصة بعناية لعشاق القهوة الأصيلة.</p>
@@ -54,13 +63,14 @@ export default function ProductCatalog({ products, onAddToCart }) {
         />
         <div className={styles.filters}>
           {categories.map((category) => (
-            <button
+            <motion.button
               key={category}
               className={`${styles.filterBtn} ${activeCategory === category ? styles.filterBtnActive : ''}`}
               onClick={() => setActiveCategory(category)}
+              {...premiumButtonMotion}
             >
               {category}
-            </button>
+            </motion.button>
           ))}
         </div>
       </div>
@@ -70,7 +80,7 @@ export default function ProductCatalog({ products, onAddToCart }) {
           const quantity = getQuantity(product.id);
 
           return (
-            <article key={product.id} className={styles.card}>
+            <motion.article key={product.id} className={styles.card} {...cardHover}>
               <div className={styles.imageWrap}>
                 <Image src={product.image} alt={product.name} fill sizes="(max-width: 768px) 100vw, 33vw" />
               </div>
@@ -87,23 +97,35 @@ export default function ProductCatalog({ products, onAddToCart }) {
                 </div>
                 <div className={styles.actions}>
                   <div className={styles.qtyControls}>
-                    <button className="btn btnSecondary" onClick={() => setQuantity(product.id, quantity - 1)}>
+                    <motion.button
+                      className="btn btnSecondary"
+                      onClick={() => setQuantity(product.id, quantity - 1)}
+                      {...premiumButtonMotion}
+                    >
                       -
-                    </button>
+                    </motion.button>
                     <span>{quantity}</span>
-                    <button className="btn btnSecondary" onClick={() => setQuantity(product.id, quantity + 1)}>
+                    <motion.button
+                      className="btn btnSecondary"
+                      onClick={() => setQuantity(product.id, quantity + 1)}
+                      {...premiumButtonMotion}
+                    >
                       +
-                    </button>
+                    </motion.button>
                   </div>
-                  <button className="btn btnPrimary" onClick={() => onAddToCart(product, quantity)}>
+                  <motion.button
+                    className="btn btnPrimary"
+                    onClick={() => onAddToCart(product, quantity)}
+                    {...addToCartMotion}
+                  >
                     أضف للسلة
-                  </button>
+                  </motion.button>
                 </div>
               </div>
-            </article>
+            </motion.article>
           );
         })}
       </div>
-    </section>
+    </motion.section>
   );
 }

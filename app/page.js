@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
 import ProductCatalog from '../components/ProductCatalog';
@@ -58,7 +59,19 @@ export default function HomePage() {
       <MenuPreview />
       <Reviews />
       <Contact />
-      {toast ? <div className="toast">{toast}</div> : null}
+      <AnimatePresence>
+        {toast ? (
+          <motion.div
+            className="toast"
+            initial={{ opacity: 0, y: 16, x: '-50%' }}
+            animate={{ opacity: 1, y: 0, x: '-50%' }}
+            exit={{ opacity: 0, y: 8, x: '-50%' }}
+            transition={{ duration: 0.35, ease: 'easeInOut' }}
+          >
+            {toast}
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </main>
   );
 }
