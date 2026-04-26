@@ -1,4 +1,6 @@
 import styles from './Header.module.css';
+import { motion } from 'framer-motion';
+import { premiumButtonMotion } from '../lib/motion';
 
 const navLinks = [
   { label: 'الرئيسية', href: '#' },
@@ -18,9 +20,9 @@ export default function Header() {
           </a>
         ))}
       </nav>
-      <a href="#products" className="btn btnPrimary">
+      <motion.a href="#products" className="btn btnPrimary" {...premiumButtonMotion}>
         اطلب الآن
-      </a>
+      </motion.a>
     </header>
   );
 }
