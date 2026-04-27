@@ -1,108 +1,84 @@
 :root {
-  --bg-950: #040404;
-  --bg-900: #0a0a0a;
-  --bg-850: #111113;
-  --surface: #17171c;
-  --surface-soft: #1f2026;
-  --surface-border: rgba(255, 255, 255, 0.08);
-  --gold: #d9b16f;
-  --gold-soft: #ab8450;
-  --text-main: #f4f3f0;
-  --text-muted: #b0a99b;
-  --shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+  --bg: #080706;
+  --bg-soft: #12100f;
+  --panel: #1a1714;
+  --panel-strong: #141210;
+  --gold: #d8a75d;
+  --gold-soft: #bc8851;
+  --cream: #f2e6d1;
+  --muted: #b7ab98;
+  --text: #f7f0e3;
+  --border: rgba(255, 255, 255, 0.12);
+  --shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
 }
 
-* {
-  box-sizing: border-box;
-}
-
-html,
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; overflow-x: hidden; }
+html { scroll-behavior: smooth; }
 body {
-  margin: 0;
-  padding: 0;
   font-family: 'Tajawal', 'Segoe UI', sans-serif;
+  color: var(--text);
   background:
-    radial-gradient(circle at 85% 10%, rgba(217, 177, 111, 0.12), transparent 34%),
-    radial-gradient(circle at 10% 45%, rgba(255, 255, 255, 0.05), transparent 28%),
-    linear-gradient(155deg, var(--bg-950), var(--bg-900) 45%, #131318);
-  color: var(--text-main);
-  scroll-behavior: smooth;
-  min-height: 100%;
+    radial-gradient(circle at 85% 8%, rgba(216, 167, 93, 0.12), transparent 30%),
+    radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.06), transparent 24%),
+    linear-gradient(165deg, var(--bg), var(--bg-soft) 40%, #0d0c0b);
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+a { color: inherit; text-decoration: none; }
+::selection { background: rgba(216, 167, 93, 0.3); color: #fff; }
+:focus-visible { outline: 2px solid rgba(216, 167, 93, 0.8); outline-offset: 2px; }
 
-main {
-  display: flex;
-  flex-direction: column;
-  gap: 2.2rem;
-  padding: 0 0 3rem;
-}
-
+main { display: flex; flex-direction: column; gap: 1.8rem; padding: 0 0 3rem; }
 .section {
   width: min(1180px, 92vw);
   margin: 0 auto;
-  background: linear-gradient(160deg, rgba(31, 32, 38, 0.8), rgba(18, 18, 22, 0.88));
-  border: 1px solid var(--surface-border);
-  border-radius: 22px;
-  padding: 1.4rem;
+  background: linear-gradient(160deg, rgba(28, 24, 20, 0.78), rgba(16, 14, 13, 0.9));
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 1.2rem;
   box-shadow: var(--shadow);
-  backdrop-filter: blur(6px);
+  backdrop-filter: blur(8px);
 }
-
-.sectionTitle {
-  margin: 0 0 1rem;
-  color: var(--text-main);
-  font-size: clamp(1.55rem, 4.2vw, 2.4rem);
-  font-weight: 800;
-  letter-spacing: 0.01em;
-}
+.sectionTitle { margin: 0 0 0.8rem; font-size: clamp(1.5rem, 4.5vw, 2.6rem); }
 
 .btn {
-  border: 0;
-  border-radius: 14px;
-  padding: 0.78rem 1.12rem;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  padding: 0.72rem 1rem;
   cursor: pointer;
   font-weight: 700;
-  font-size: 1rem;
+  transition: all 0.25s ease;
 }
 
 .btnPrimary {
   background: linear-gradient(135deg, var(--gold), var(--gold-soft));
-  color: #13110d;
-  box-shadow: 0 8px 24px rgba(217, 177, 111, 0.35);
+  color: #18120d;
+  box-shadow: 0 10px 24px rgba(216, 167, 93, 0.28);
 }
+.btnPrimary:hover { filter: brightness(1.06); }
 
 .btnSecondary {
-  background: rgba(255, 255, 255, 0.03);
-  color: var(--text-main);
-  border: 1px solid rgba(217, 177, 111, 0.45);
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(216, 167, 93, 0.45);
+  color: var(--text);
 }
+.btnSecondary:hover { border-color: rgba(216, 167, 93, 0.8); }
 
 .toast {
   position: fixed;
   bottom: 5rem;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(14, 14, 16, 0.94);
-  color: var(--text-main);
+  background: rgba(15, 14, 13, 0.96);
+  color: var(--cream);
   padding: 0.75rem 1.05rem;
   border-radius: 999px;
   z-index: 60;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border);
   box-shadow: var(--shadow);
 }
 
 @media (min-width: 768px) {
-  main {
-    gap: 2.8rem;
-  }
-
-  .section {
-    padding: 1.9rem;
-    border-radius: 24px;
-  }
+  main { gap: 2.3rem; }
+  .section { padding: 1.7rem; border-radius: 22px; }
 }

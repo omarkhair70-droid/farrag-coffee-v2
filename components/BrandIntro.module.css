@@ -1,0 +1,60 @@
+.brandIntro {
+  display: grid;
+  gap: 1.1rem;
+}
+
+.kicker {
+  color: var(--gold-soft);
+  letter-spacing: 0.06em;
+  margin: 0 0 0.6rem;
+}
+
+.content p {
+  color: var(--muted);
+  line-height: 1.9;
+}
+
+.points {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 1rem;
+}
+
+.points span {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.4rem 0.75rem;
+}
+
+.panel {
+  background: linear-gradient(140deg, rgba(31, 23, 18, 0.9), rgba(20, 18, 16, 0.92));
+  border: 1px solid rgba(216, 167, 93, 0.2);
+  border-radius: 18px;
+  padding: 1rem;
+}
+
+.panelLabel {
+  color: var(--gold-soft);
+  margin: 0;
+}
+
+.panel h3 {
+  font-size: clamp(1.2rem, 4vw, 2rem);
+  margin: 0.4rem 0;
+}
+
+.panel p {
+  color: var(--muted);
+  line-height: 1.9;
+  margin: 0;
+}
+
+@media (min-width: 900px) {
+  .brandIntro {
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    gap: 2rem;
+  }
+}

@@ -10,6 +10,15 @@ const ALL_FILTER = 'all';
 
 const normalize = (value = '') => value.toString().trim().toLowerCase();
 
+const getSuitableFor = (product) => {
+  const name = normalize(product.name);
+  if (name.includes('برازيلي') && name.includes('سادة')) return 'مناسب لـ القهوة اليومية';
+  if (name.includes('تركي') && name.includes('محوج')) return 'مناسب لـ ريحة محوج واضحة';
+  if (name.includes('يمني')) return 'مناسب لـ الطعم التقيل';
+  if (name.includes('إسبريسو') || name.includes('espresso')) return 'مناسب لـ المكاين';
+  return 'مناسب لـ عشاق القهوة';
+};
+
 export default function ProductCatalog({ products, onAddToCart }) {
   const [activeCategory, setActiveCategory] = useState(ALL_FILTER);
   const [searchTerm, setSearchTerm] = useState('');
@@ -74,21 +83,16 @@ export default function ProductCatalog({ products, onAddToCart }) {
       };
 
   return (
-    <motion.section
-      id="products"
-      className="section"
-      {...sectionAnimation}
-      transition={sectionReveal.transition}
-    >
+    <motion.section id="products" className="section" {...sectionAnimation} transition={sectionReveal.transition}>
       <div className={styles.headerRow}>
-        <h2 className="sectionTitle">منتجات فاخرة مختارة</h2>
-        <p className={styles.subtitle}>تحميص احترافي، خامات نقية، وتفاصيل مصممة لعشاق الذوق الرفيع.</p>
+        <h2 className="sectionTitle">اختار قهوتك</h2>
+        <p className={styles.subtitle}>كل منتج متجهّز بطحنة وطابع يخلّي الطلب واضح وسهل من أول مرة.</p>
       </div>
 
       <div className={styles.toolbar}>
         <input
           className={styles.search}
-          placeholder="ابحث عن منتج أو نوع القهوة..."
+          placeholder="ابحث عن نوع القهوة المناسب..."
           value={searchTerm}
           onChange={(event) => setSearchTerm(event.target.value)}
           aria-label="بحث المنتجات"
@@ -122,6 +126,7 @@ export default function ProductCatalog({ products, onAddToCart }) {
           return (
             <motion.article key={product.id} className={styles.card} {...cardAnimation} {...cardHover}>
               <div className={styles.imageWrap}>
+                <span className={styles.ribbon}>اختيار فراج</span>
                 <Image
                   src={product.image}
                   alt={product.name}
@@ -136,33 +141,19 @@ export default function ProductCatalog({ products, onAddToCart }) {
                 <div className={styles.tags}>
                   <span>{product.category}</span>
                   <span>{product.weight}</span>
+                  <span>طحن طازة</span>
                 </div>
+                <p className={styles.suitable}>{getSuitableFor(product)}</p>
                 <div className={styles.meta}>
                   <strong>{product.price} جنيه</strong>
                 </div>
                 <div className={styles.actions}>
                   <div className={styles.qtyControls}>
-                    <motion.button
-                      className="btn btnSecondary"
-                      onClick={() => setQuantity(product.id, quantity - 1)}
-                      {...premiumButtonMotion}
-                    >
-                      -
-                    </motion.button>
+                    <motion.button className="btn btnSecondary" onClick={() => setQuantity(product.id, quantity - 1)} {...premiumButtonMotion}>-</motion.button>
                     <span>{quantity}</span>
-                    <motion.button
-                      className="btn btnSecondary"
-                      onClick={() => setQuantity(product.id, quantity + 1)}
-                      {...premiumButtonMotion}
-                    >
-                      +
-                    </motion.button>
+                    <motion.button className="btn btnSecondary" onClick={() => setQuantity(product.id, quantity + 1)} {...premiumButtonMotion}>+</motion.button>
                   </div>
-                  <motion.button
-                    className="btn btnPrimary"
-                    onClick={() => onAddToCart(product, quantity)}
-                    {...addToCartMotion}
-                  >
+                  <motion.button className="btn btnPrimary" onClick={() => onAddToCart(product, quantity)} {...addToCartMotion}>
                     أضف للسلة
                   </motion.button>
                 </div>
@@ -172,9 +163,7 @@ export default function ProductCatalog({ products, onAddToCart }) {
         })}
       </div>
 
-      {!filteredProducts.length ? (
-        <p className={styles.emptyState}>لا توجد منتجات مطابقة حالياً. جرّب تغيير الفئة أو البحث.</p>
-      ) : null}
+      {!filteredProducts.length ? <p className={styles.emptyState}>لا توجد منتجات مطابقة حالياً. جرّب فئة أو بحث مختلف.</p> : null}
     </motion.section>
   );
 }
