@@ -10,7 +10,6 @@ import CoffeeGuide from '../components/CoffeeGuide';
 import ProductCatalog from '../components/ProductCatalog';
 import WhyFarrag from '../components/WhyFarrag';
 import Cart from '../components/Cart';
-import MenuPreview from '../components/MenuPreview';
 import Reviews from '../components/Reviews';
 import Contact from '../components/Contact';
 import products from '../data/products';
@@ -64,7 +63,6 @@ export default function HomePage() {
       <ProductCatalog products={products} onAddToCart={addToCart} />
       <WhyFarrag />
       <Cart items={cartItems} total={total} onUpdateQuantity={updateQuantity} onRemoveItem={removeItem} />
-      <MenuPreview />
       <Reviews />
       <Contact />
       <AnimatePresence>

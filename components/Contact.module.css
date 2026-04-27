@@ -2,7 +2,7 @@
 .copy { margin: 0; color: var(--muted); }
 .ctas { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.6rem; }
 .infoGrid { margin-top: 1.1rem; display: grid; gap: 0.7rem; }
-.infoGrid article { border: 1px solid var(--border); background: rgba(255, 255, 255, 0.02); border-radius: 12px; padding: 0.85rem; }
-.infoGrid h3 { margin: 0 0 0.3rem; font-size: 1rem; color: #f3dfbd; }
-.infoGrid a { color: var(--text); text-decoration: underline; }
+.infoGrid article { border: 1px solid rgba(120, 91, 63, 0.16); background: rgba(255, 250, 243, 0.72); border-radius: 12px; padding: 0.85rem; }
+.infoGrid h3 { margin: 0 0 0.3rem; font-size: 1rem; color: #8f5d2c; }
+.infoGrid a { color: #3c2c20; text-decoration: underline; }
 @media (min-width: 800px) { .infoGrid { grid-template-columns: repeat(2, 1fr); } }

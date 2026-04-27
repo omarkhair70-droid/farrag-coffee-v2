@@ -1,7 +1,6 @@
 'use client';
 
 import { useMemo, useState, useEffect } from 'react';
-import Image from 'next/image';
 import { motion } from 'framer-motion';
 import styles from './ProductCatalog.module.css';
 import { addToCartMotion, cardHover, premiumButtonMotion, sectionReveal } from '../lib/motion';
@@ -125,27 +124,16 @@ export default function ProductCatalog({ products, onAddToCart }) {
 
           return (
             <motion.article key={product.id} className={styles.card} {...cardAnimation} {...cardHover}>
-              <div className={styles.imageWrap}>
-                <span className={styles.ribbon}>اختيار فراج</span>
-                <Image
-                  src={product.image}
-                  alt={product.name}
-                  fill
-                  className={styles.productImage}
-                  sizes="(max-width: 699px) 100vw, (max-width: 999px) 50vw, 33vw"
-                />
-              </div>
               <div className={styles.content}>
-                <h3>{product.name}</h3>
-                <p className={styles.description}>{product.description}</p>
-                <div className={styles.tags}>
-                  <span>{product.category}</span>
-                  <span>{product.weight}</span>
-                  <span>طحن طازة</span>
+                <div className={styles.topRow}>
+                  <h3>{product.name}</h3>
+                  <span className={styles.typePill}>{product.category} • {product.type}</span>
                 </div>
+                <p className={styles.description}>{product.description}</p>
                 <p className={styles.suitable}>{getSuitableFor(product)}</p>
                 <div className={styles.meta}>
                   <strong>{product.price} جنيه</strong>
+                  <span>{product.weight}</span>
                 </div>
                 <div className={styles.actions}>
                   <div className={styles.qtyControls}>
