@@ -208,8 +208,38 @@
 .formActions {
   margin-top: 0.9rem;
   display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.formActions .saveBtn,
+.formActions .cancelBtn {
+  width: 100%;
+  max-width: 100%;
+  min-height: 48px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
+  justify-content: center;
+  padding: 0.7rem 1rem;
+  font-size: 0.95rem;
+  white-space: normal;
+}
+
+.formActions .saveBtn {
+  background: #5b3a22;
+  color: #fff;
+  border-color: #5b3a22;
+  box-shadow: 0 2px 8px rgba(91, 58, 34, 0.2);
+}
+
+.formActions .cancelBtn {
+  background: rgba(91, 58, 34, 0.08);
+  color: var(--coffee);
+  border-color: rgba(91, 58, 34, 0.22);
 }
 
 @media (min-width: 768px) {
@@ -237,5 +267,16 @@
 
   .formGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .formActions {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .formActions .saveBtn,
+  .formActions .cancelBtn {
+    width: auto;
+    min-width: 150px;
   }
 }
