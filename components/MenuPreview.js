@@ -14,10 +14,11 @@ export default function MenuPreview() {
       viewport={sectionReveal.viewport}
       transition={sectionReveal.transition}
     >
-      <h2 className="sectionTitle">معاينة المنيو</h2>
+      <h2 className="sectionTitle">المنيو الكامل</h2>
+      <p className={styles.subtitle}>تصفّح اختيارات فراج وشوف الأنواع المتاحة.</p>
       <div className={styles.grid}>
         {menuImages.map((menuImage, index) => (
-          <motion.div key={menuImage} className={styles.menuCard} {...cardHover}>
+          <motion.figure key={menuImage} className={styles.menuCard} {...cardHover}>
             <Image
               src={menuImage}
               alt={`منيو فراج ${index + 1}`}
@@ -26,7 +27,7 @@ export default function MenuPreview() {
               className={styles.menuImage}
               sizes="(max-width: 699px) 100vw, (max-width: 999px) 50vw, 33vw"
             />
-          </motion.div>
+          </motion.figure>
         ))}
       </div>
     </motion.section>

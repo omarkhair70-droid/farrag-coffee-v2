@@ -5,28 +5,35 @@ import { premiumButtonMotion } from '../lib/motion';
 
 const navLinks = [
   { label: 'الرئيسية', href: '#' },
+  { label: 'التجربة', href: '#experience' },
+  { label: 'اختار قهوتك', href: '#guide' },
   { label: 'المنتجات', href: '#products' },
-  { label: 'السلة', href: '#cart' },
-  { label: 'تواصل معنا', href: '#contact' }
+  { label: 'الطلب', href: '#cart' },
+  { label: 'تواصل', href: '#contact' }
 ];
 
 export default function Header() {
   return (
-    <header className={`${styles.header} section`}>
-      <div className={styles.logoWrap}>
-        <Image src="/images/logo.png" alt="Farrag Coffee" width={56} height={56} className={styles.logoImage} priority />
-        <span className={styles.logoText}>بن فراج</span>
+    <header className={styles.header}>
+      <div className={styles.inner}>
+        <a href="#" className={styles.logoWrap}>
+          <Image src="/images/logo.png" alt="بن فراج" width={52} height={52} className={styles.logoImage} priority />
+          <div>
+            <span className={styles.logoText}>بن فراج</span>
+            <small>قهوة بطابعها</small>
+          </div>
+        </a>
+        <nav className={styles.nav}>
+          {navLinks.map((link) => (
+            <a key={link.label} href={link.href}>
+              {link.label}
+            </a>
+          ))}
+        </nav>
+        <motion.a href="#products" className="btn btnPrimary" {...premiumButtonMotion}>
+          اطلب الآن
+        </motion.a>
       </div>
-      <nav className={styles.nav}>
-        {navLinks.map((link) => (
-          <a key={link.label} href={link.href}>
-            {link.label}
-          </a>
-        ))}
-      </nav>
-      <motion.a href="#products" className="btn btnPrimary" {...premiumButtonMotion}>
-        اطلب الآن
-      </motion.a>
     </header>
   );
 }

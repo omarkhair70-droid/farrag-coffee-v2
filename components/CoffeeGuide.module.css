@@ -1,0 +1,45 @@
+.subtitle {
+  margin: 0;
+  color: var(--muted);
+}
+
+.grid {
+  display: grid;
+  gap: 0.9rem;
+  margin-top: 1.2rem;
+}
+
+.card {
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: linear-gradient(160deg, rgba(24, 24, 22, 0.88), rgba(17, 17, 16, 0.95));
+  display: grid;
+  gap: 0.65rem;
+}
+
+.question {
+  margin: 0;
+  color: var(--gold-soft);
+  font-weight: 700;
+}
+
+.card h3 {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.card p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.card :global(.btn) {
+  justify-self: start;
+}
+
+@media (min-width: 700px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

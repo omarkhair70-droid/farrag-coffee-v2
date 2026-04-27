@@ -1,35 +1,62 @@
 .header {
-  display: flex;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  padding: 0.8rem 0.7rem 0;
+}
+
+.inner {
+  width: min(1200px, 100%);
+  margin: 0 auto;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 0.7rem;
+  background: rgba(11, 11, 11, 0.72);
+  backdrop-filter: blur(14px);
+  box-shadow: var(--shadow);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.7rem;
   align-items: center;
-  justify-content: space-between;
-  gap: 0.9rem;
-  flex-wrap: wrap;
 }
 
 .logoWrap {
   display: flex;
   align-items: center;
-  gap: 0.65rem;
-}
-
-.logoImage {
-  object-fit: contain;
-  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.35));
+  gap: 0.5rem;
 }
 
 .logoText {
-  font-size: 1.8rem;
+  font-size: 1.2rem;
   font-weight: 800;
-  color: var(--text-main);
+  display: block;
+}
+
+.logoWrap small {
+  color: var(--muted);
 }
 
 .nav {
   display: flex;
-  gap: 0.9rem;
   flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 0.8rem;
 }
 
 .nav a {
-  color: var(--text-muted);
-  font-weight: 600;
+  color: var(--muted);
+  font-size: 0.93rem;
+}
+
+@media (max-width: 850px) {
+  .inner {
+    grid-template-columns: 1fr auto;
+  }
+
+  .nav {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+    padding-top: 0.2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
 }

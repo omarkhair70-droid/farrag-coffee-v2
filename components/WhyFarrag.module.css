@@ -1,0 +1,37 @@
+.subtitle {
+  margin: 0;
+  color: var(--muted);
+}
+
+.grid {
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.8rem;
+}
+
+.card {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1rem;
+  background: linear-gradient(160deg, rgba(21, 21, 20, 0.88), rgba(14, 14, 13, 0.95));
+}
+
+.card span {
+  color: var(--gold);
+  font-weight: 800;
+}
+
+.card h3 {
+  margin: 0.4rem 0;
+}
+
+.card p {
+  margin: 0;
+  color: var(--muted);
+}
+
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

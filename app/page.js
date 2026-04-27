@@ -4,7 +4,11 @@ import { useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
+import BrandIntro from '../components/BrandIntro';
+import CoffeeRitual from '../components/CoffeeRitual';
+import CoffeeGuide from '../components/CoffeeGuide';
 import ProductCatalog from '../components/ProductCatalog';
+import WhyFarrag from '../components/WhyFarrag';
 import Cart from '../components/Cart';
 import MenuPreview from '../components/MenuPreview';
 import Reviews from '../components/Reviews';
@@ -54,7 +58,11 @@ export default function HomePage() {
     <main>
       <Header />
       <Hero />
+      <BrandIntro />
+      <CoffeeRitual />
+      <CoffeeGuide />
       <ProductCatalog products={products} onAddToCart={addToCart} />
+      <WhyFarrag />
       <Cart items={cartItems} total={total} onUpdateQuantity={updateQuantity} onRemoveItem={removeItem} />
       <MenuPreview />
       <Reviews />
