@@ -1,0 +1,86 @@
+.finder {
+  display: grid;
+  gap: 1rem;
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--muted);
+}
+
+.questions {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.questionBlock {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.questionTitle {
+  margin: 0;
+  font-weight: 700;
+  color: #5a4029;
+}
+
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.option {
+  border: 1px solid rgba(155, 99, 40, 0.24);
+  background: rgba(255, 250, 243, 0.82);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 0.38rem 0.76rem;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.optionActive {
+  background: rgba(185, 120, 50, 0.14);
+  border-color: rgba(155, 99, 40, 0.5);
+  color: #563620;
+}
+
+.result {
+  margin-top: 0.15rem;
+  border: 1px solid rgba(120, 91, 63, 0.16);
+  border-radius: 14px;
+  background: rgba(255, 252, 247, 0.7);
+  padding: 0.9rem;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.resultTitle {
+  margin: 0;
+  color: #8f5d2c;
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.result h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.result p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.resultActions {
+  margin-top: 0.35rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.resultActions :global(.btn) {
+  border-radius: 999px;
+  padding: 0.44rem 0.82rem;
+}

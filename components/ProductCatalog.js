@@ -6,6 +6,8 @@ import styles from './ProductCatalog.module.css';
 import { addToCartMotion, cardHover, premiumButtonMotion, sectionReveal } from '../lib/motion';
 
 const ALL_FILTER = 'all';
+const whatsappNumber = '201005009908';
+const grindOptions = ['ناعم تركي', 'وسط', 'خشن', 'إسبريسو', 'بدون طحن'];
 
 const normalize = (value = '') => value.toString().trim().toLowerCase();
 
@@ -18,10 +20,16 @@ const getSuitableFor = (product) => {
   return 'مناسب لـ عشاق القهوة';
 };
 
+const getDefaultGrind = (product) => {
+  const fullName = normalize(`${product.name} ${product.category}`);
+  return fullName.includes('إسبريسو') || fullName.includes('espresso') ? 'إسبريسو' : 'ناعم تركي';
+};
+
 export default function ProductCatalog({ products, onAddToCart }) {
   const [activeCategory, setActiveCategory] = useState(ALL_FILTER);
   const [searchTerm, setSearchTerm] = useState('');
   const [quantities, setQuantities] = useState({});
+  const [grinds, setGrinds] = useState({});
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -73,6 +81,24 @@ export default function ProductCatalog({ products, onAddToCart }) {
 
   const getQuantity = (productId) => quantities[productId] ?? 1;
 
+  const setGrind = (productId, grind) => {
+    setGrinds((prev) => ({
+      ...prev,
+      [productId]: grind
+    }));
+  };
+
+  const getGrind = (product) => grinds[product.id] ?? getDefaultGrind(product);
+
+  const handleQuickWhatsApp = (product, quantity, grind) => {
+    const total = product.price * quantity;
+    const message = encodeURIComponent(
+      `مرحباً بن فراج، أريد طلب:\nالمنتج: ${product.name}\nالطحنة: ${grind}\nالكمية: ${quantity}\nالسعر: ${product.price} جنيه\nالإجمالي: ${total} جنيه\nمن موقع بن فراج.`
+    );
+
+    window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank', 'noopener,noreferrer');
+  };
+
   const sectionAnimation = isMobile
     ? { initial: false, animate: { opacity: 1, y: 0 } }
     : {
@@ -114,6 +140,7 @@ export default function ProductCatalog({ products, onAddToCart }) {
       <div className={styles.grid}>
         {filteredProducts.map((product, index) => {
           const quantity = getQuantity(product.id);
+          const grind = getGrind(product);
           const cardAnimation = isMobile
             ? { initial: false, animate: { opacity: 1, y: 0 } }
             : {
@@ -137,15 +164,36 @@ export default function ProductCatalog({ products, onAddToCart }) {
                   <strong>{product.price} جنيه</strong>
                   <span>{product.weight}</span>
                 </div>
+
+                <label className={styles.grindWrap}>
+                  <span className={styles.grindLabel}>اختار الطحنة</span>
+                  <select className={styles.grindSelect} value={grind} onChange={(event) => setGrind(product.id, event.target.value)}>
+                    {grindOptions.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+
                 <div className={styles.actions}>
                   <div className={styles.qtyControls}>
                     <motion.button className="btn btnSecondary" onClick={() => setQuantity(product.id, quantity - 1)} {...premiumButtonMotion}>-</motion.button>
                     <span>{quantity}</span>
                     <motion.button className="btn btnSecondary" onClick={() => setQuantity(product.id, quantity + 1)} {...premiumButtonMotion}>+</motion.button>
                   </div>
-                  <motion.button className="btn btnPrimary" onClick={() => onAddToCart(product, quantity)} {...addToCartMotion}>
-                    أضف للسلة
-                  </motion.button>
+                  <div className={styles.ctaRow}>
+                    <motion.button className={`btn btnPrimary ${styles.compactBtn}`} onClick={() => onAddToCart(product, quantity, grind)} {...addToCartMotion}>
+                      أضف للسلة
+                    </motion.button>
+                    <motion.button
+                      className={`btn btnSecondary ${styles.compactBtn}`}
+                      onClick={() => handleQuickWhatsApp(product, quantity, grind)}
+                      {...premiumButtonMotion}
+                    >
+                      اطلبه فورًا
+                    </motion.button>
+                  </div>
                 </div>
               </div>
             </motion.article>

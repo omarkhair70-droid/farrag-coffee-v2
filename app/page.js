@@ -8,6 +8,7 @@ import BrandIntro from '../components/BrandIntro';
 import CoffeeRitual from '../components/CoffeeRitual';
 import CoffeeGuide from '../components/CoffeeGuide';
 import ProductCatalog from '../components/ProductCatalog';
+import CoffeeFinder from '../components/CoffeeFinder';
 import WhyFarrag from '../components/WhyFarrag';
 import Cart from '../components/Cart';
 import Reviews from '../components/Reviews';
@@ -18,34 +19,36 @@ export default function HomePage() {
   const [cartItems, setCartItems] = useState([]);
   const [toast, setToast] = useState('');
 
-  const addToCart = (product, quantity = 1) => {
+  const addToCart = (product, quantity = 1, grind = 'ناعم تركي') => {
+    const cartKey = `${product.id}::${grind}`;
+
     setCartItems((prev) => {
-      const existing = prev.find((item) => item.id === product.id);
+      const existing = prev.find((item) => item.cartKey === cartKey);
       if (existing) {
         return prev.map((item) =>
-          item.id === product.id ? { ...item, quantity: item.quantity + quantity } : item
+          item.cartKey === cartKey ? { ...item, quantity: item.quantity + quantity } : item
         );
       }
-      return [...prev, { ...product, quantity }];
+      return [...prev, { ...product, grind, cartKey, quantity }];
     });
 
-    setToast(`تمت إضافة ${quantity} × ${product.name} إلى السلة`);
+    setToast(`تمت إضافة ${quantity} × ${product.name} — ${grind} إلى السلة`);
     setTimeout(() => setToast(''), 2200);
   };
 
-  const updateQuantity = (id, nextQuantity) => {
+  const updateQuantity = (cartKey, nextQuantity) => {
     setCartItems((prev) => {
       if (nextQuantity <= 0) {
-        return prev.filter((item) => item.id !== id);
+        return prev.filter((item) => item.cartKey !== cartKey);
       }
       return prev.map((item) =>
-        item.id === id ? { ...item, quantity: nextQuantity } : item
+        item.cartKey === cartKey ? { ...item, quantity: nextQuantity } : item
       );
     });
   };
 
-  const removeItem = (id) => {
-    setCartItems((prev) => prev.filter((item) => item.id !== id));
+  const removeItem = (cartKey) => {
+    setCartItems((prev) => prev.filter((item) => item.cartKey !== cartKey));
   };
 
   const total = useMemo(
@@ -60,6 +63,7 @@ export default function HomePage() {
       <BrandIntro />
       <CoffeeRitual />
       <CoffeeGuide />
+      <CoffeeFinder />
       <ProductCatalog products={products} onAddToCart={addToCart} />
       <WhyFarrag />
       <Cart items={cartItems} total={total} onUpdateQuantity={updateQuantity} onRemoveItem={removeItem} />
