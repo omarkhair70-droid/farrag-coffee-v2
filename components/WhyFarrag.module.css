@@ -10,14 +10,14 @@
 }
 
 .card {
-  border: 1px solid var(--border);
+  border: 1px solid rgba(120, 91, 63, 0.16);
   border-radius: 14px;
   padding: 1rem;
-  background: linear-gradient(160deg, rgba(21, 21, 20, 0.88), rgba(14, 14, 13, 0.95));
+  background: rgba(255, 250, 243, 0.65);
 }
 
 .card span {
-  color: var(--gold);
+  color: #8f5d2c;
   font-weight: 800;
 }
 

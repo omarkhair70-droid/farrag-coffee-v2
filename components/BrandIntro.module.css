@@ -1,17 +1,17 @@
 .brandIntro {
   display: grid;
-  gap: 1.1rem;
+  gap: 1.25rem;
 }
 
 .kicker {
-  color: var(--gold-soft);
+  color: #8f5d2c;
   letter-spacing: 0.06em;
   margin: 0 0 0.6rem;
 }
 
 .content p {
   color: var(--muted);
-  line-height: 1.9;
+  line-height: 1.95;
 }
 
 .points {
@@ -22,21 +22,21 @@
 }
 
 .points span {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--border);
+  background: rgba(255, 248, 238, 0.85);
+  border: 1px solid rgba(120, 91, 63, 0.16);
   border-radius: 999px;
   padding: 0.4rem 0.75rem;
 }
 
 .panel {
-  background: linear-gradient(140deg, rgba(31, 23, 18, 0.9), rgba(20, 18, 16, 0.92));
-  border: 1px solid rgba(216, 167, 93, 0.2);
-  border-radius: 18px;
+  background: rgba(255, 249, 241, 0.72);
+  border: 1px solid rgba(120, 91, 63, 0.16);
+  border-radius: 16px;
   padding: 1rem;
 }
 
 .panelLabel {
-  color: var(--gold-soft);
+  color: #8f5d2c;
   margin: 0;
 }
 

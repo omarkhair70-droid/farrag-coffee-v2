@@ -11,16 +11,16 @@
 
 .card {
   padding: 1rem;
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  background: linear-gradient(160deg, rgba(24, 24, 22, 0.88), rgba(17, 17, 16, 0.95));
+  border: 1px solid rgba(120, 91, 63, 0.16);
+  border-radius: 14px;
+  background: rgba(255, 250, 243, 0.68);
   display: grid;
   gap: 0.65rem;
 }
 
 .question {
   margin: 0;
-  color: var(--gold-soft);
+  color: #8f5d2c;
   font-weight: 700;
 }
 
