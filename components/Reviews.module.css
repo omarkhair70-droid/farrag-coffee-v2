@@ -1,15 +1,16 @@
 .grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 0.7rem;
+  gap: 0.8rem;
 }
 
 .card {
-  background: #fff;
-  border: 1px solid rgba(200, 164, 98, 0.35);
-  border-radius: 12px;
-  padding: 1rem;
-  color: var(--coffee);
+  background: linear-gradient(160deg, #1e1f25, #15161b);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 1.2rem;
+  color: #eee9de;
+  line-height: 1.8;
 }
 
 @media (min-width: 700px) {
