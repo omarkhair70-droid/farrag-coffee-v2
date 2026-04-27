@@ -10,7 +10,7 @@ const whatsappNumber = '201005009908';
 
 function buildMessage({ customerName, phone, notes, items, subtotal, total }) {
   const lines = items.map(
-    (item, index) => `${index + 1}- ${item.name} | الكمية: ${item.quantity} | السعر: ${item.price * item.quantity} جنيه`
+    (item, index) => `${index + 1}- ${item.name} | الطحنة: ${item.grind || 'ناعم تركي'} | الكمية: ${item.quantity} | السعر: ${item.price * item.quantity} جنيه`
   );
 
   return [
@@ -59,7 +59,7 @@ export default function Cart({ items, total, onUpdateQuantity, onRemoveItem }) {
 
       const orderItems = items.map((item) => ({
         order_id: data.id,
-        product_name: item.name,
+        product_name: `${item.name} - ${item.grind || 'ناعم تركي'}`,
         quantity: item.quantity,
         price: item.price
       }));
@@ -99,7 +99,7 @@ export default function Cart({ items, total, onUpdateQuantity, onRemoveItem }) {
             <AnimatePresence mode="popLayout">
               {items.map((item) => (
                 <motion.div
-                  key={item.id}
+                  key={item.cartKey || `${item.id}-${item.grind || 'naem'}`}
                   className={styles.row}
                   layout
                   initial={{ opacity: 0, y: 8 }}
@@ -109,13 +109,14 @@ export default function Cart({ items, total, onUpdateQuantity, onRemoveItem }) {
                 >
                   <div>
                     <h3>{item.name}</h3>
+                    <p className={styles.grindText}>الطحنة: {item.grind || 'ناعم تركي'}</p>
                     <p>{item.price} جنيه × {item.quantity}</p>
                   </div>
                   <div className={styles.controls}>
-                    <motion.button className="btn btnSecondary" onClick={() => onUpdateQuantity(item.id, item.quantity - 1)} {...premiumButtonMotion}>-</motion.button>
+                    <motion.button className="btn btnSecondary" onClick={() => onUpdateQuantity(item.cartKey, item.quantity - 1)} {...premiumButtonMotion}>-</motion.button>
                     <span>{item.quantity}</span>
-                    <motion.button className="btn btnSecondary" onClick={() => onUpdateQuantity(item.id, item.quantity + 1)} {...premiumButtonMotion}>+</motion.button>
-                    <motion.button className={styles.removeBtn} onClick={() => onRemoveItem(item.id)} whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }} transition={{ duration: 0.25, ease: 'easeInOut' }}>
+                    <motion.button className="btn btnSecondary" onClick={() => onUpdateQuantity(item.cartKey, item.quantity + 1)} {...premiumButtonMotion}>+</motion.button>
+                    <motion.button className={styles.removeBtn} onClick={() => onRemoveItem(item.cartKey)} whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }} transition={{ duration: 0.25, ease: 'easeInOut' }}>
                       إزالة
                     </motion.button>
                   </div>
