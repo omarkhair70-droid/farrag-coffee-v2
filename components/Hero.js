@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import styles from './Hero.module.css';
 import { motion } from 'framer-motion';
 import { premiumButtonMotion, sectionReveal } from '../lib/motion';
@@ -14,10 +13,15 @@ export default function Hero() {
       viewport={sectionReveal.viewport}
       transition={sectionReveal.transition}
     >
-      <div className={styles.mediaLayer}>
-        <Image src="/images/menu-2.jpeg" alt="تحضير القهوة في بن فراج" fill className={styles.heroImage} priority sizes="100vw" />
+      <div className={styles.editorialArt} aria-hidden="true">
+        <span className={styles.steamOne} />
+        <span className={styles.steamTwo} />
+        <span className={styles.steamThree} />
+        <span className={styles.stamp}>Farrag Coffee</span>
+        <span className={styles.beanOne} />
+        <span className={styles.beanTwo} />
       </div>
-      <div className={styles.overlay} />
+
       <div className={styles.content}>
         <p className={styles.badge}>بن فراج — قهوة بطابعها</p>
         <h1>القهوة كما يجب أن تُطحن.</h1>
