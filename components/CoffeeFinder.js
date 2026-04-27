@@ -25,6 +25,15 @@ const questions = [
 
 const whatsappNumber = '201005009908';
 
+
+function getSuggestedGrind(productId) {
+  if (productId === 'espresso') return 'إسبريسو';
+  if (productId === 'turkish-blend') return 'ناعم تركي';
+  if (productId === 'yemeni-plain') return 'ناعم تركي';
+  if (productId === 'brazilian-plain') return 'ناعم تركي';
+  return 'ناعم تركي';
+}
+
 function getRecommendation(answers) {
   if (answers.taste === 'مركزة للماكينة' || answers.method === 'ماكينة') {
     return {
@@ -71,8 +80,10 @@ export default function CoffeeFinder() {
 
   const handleQuickOrder = () => {
     if (!recommendation) return;
+
+    const suggestedGrind = getSuggestedGrind(recommendation.productId);
     const message = encodeURIComponent(
-      `مرحباً بن فراج، أريد طلب:\nالمنتج: ${recommendation.name}\nالكمية: 1\nمن موقع بن فراج.`
+      `مرحباً بن فراج، أريد طلب:\nالمنتج: ${recommendation.name}\nتم ترشيحه لي من Coffee Finder.\nالطحنة المقترحة: ${suggestedGrind}\nالكمية: 1\nمن موقع بن فراج.`
     );
     window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank', 'noopener,noreferrer');
   };

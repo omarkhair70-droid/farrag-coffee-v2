@@ -13,11 +13,11 @@ const normalize = (value = '') => value.toString().trim().toLowerCase();
 
 const getSuitableFor = (product) => {
   const name = normalize(product.name);
-  if (name.includes('برازيلي') && name.includes('سادة')) return 'مناسب لـ القهوة اليومية';
-  if (name.includes('تركي') && name.includes('محوج')) return 'مناسب لـ ريحة محوج واضحة';
-  if (name.includes('يمني')) return 'مناسب لـ الطعم التقيل';
-  if (name.includes('إسبريسو') || name.includes('espresso')) return 'مناسب لـ المكاين';
-  return 'مناسب لـ عشاق القهوة';
+  if (name.includes('برازيلي') && name.includes('سادة')) return 'مناسب للقهوة اليومية';
+  if (name.includes('تركي') && name.includes('محوج')) return 'مناسب لمحبي الريحة المحوجة';
+  if (name.includes('يمني')) return 'مناسب للطعم التقيل';
+  if (name.includes('إسبريسو') || name.includes('espresso')) return 'مناسب للمكاين';
+  return 'مناسب لعشاق القهوة';
 };
 
 const getDefaultGrind = (product) => {
