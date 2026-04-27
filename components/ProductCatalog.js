@@ -81,8 +81,8 @@ export default function ProductCatalog({ products, onAddToCart }) {
       transition={sectionReveal.transition}
     >
       <div className={styles.headerRow}>
-        <h2 className="sectionTitle">كتالوج المنتجات</h2>
-        <p className={styles.subtitle}>اختيارات فاخرة محمصة بعناية لعشاق القهوة الأصيلة.</p>
+        <h2 className="sectionTitle">منتجات فاخرة مختارة</h2>
+        <p className={styles.subtitle}>تحميص احترافي، خامات نقية، وتفاصيل مصممة لعشاق الذوق الرفيع.</p>
       </div>
 
       <div className={styles.toolbar}>
@@ -135,7 +135,6 @@ export default function ProductCatalog({ products, onAddToCart }) {
                 <p className={styles.description}>{product.description}</p>
                 <div className={styles.tags}>
                   <span>{product.category}</span>
-                  <span>{product.type}</span>
                   <span>{product.weight}</span>
                 </div>
                 <div className={styles.meta}>

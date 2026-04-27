@@ -1,4 +1,6 @@
+import { motion } from 'framer-motion';
 import styles from './Reviews.module.css';
+import { cardHover, sectionReveal } from '../lib/motion';
 
 const reviews = [
   'خدمة ممتازة وطعم رائع للقهوة.',
@@ -8,15 +10,21 @@ const reviews = [
 
 export default function Reviews() {
   return (
-    <section className="section">
+    <motion.section
+      className="section"
+      initial={sectionReveal.initial}
+      whileInView={sectionReveal.whileInView}
+      viewport={sectionReveal.viewport}
+      transition={sectionReveal.transition}
+    >
       <h2 className="sectionTitle">آراء العملاء</h2>
       <div className={styles.grid}>
         {reviews.map((review, i) => (
-          <article key={i} className={styles.card}>
+          <motion.article key={i} className={styles.card} {...cardHover}>
             <p>{review}</p>
-          </article>
+          </motion.article>
         ))}
       </div>
-    </section>
+    </motion.section>
   );
 }
