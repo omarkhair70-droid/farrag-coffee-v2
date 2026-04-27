@@ -1,34 +1,39 @@
 .subtitle {
   margin: 0;
   color: var(--muted);
+  max-width: 760px;
 }
 
 .grid {
-  margin-top: 1.2rem;
+  margin-top: 1.5rem;
   display: grid;
   gap: 0.9rem;
 }
 
 .card {
-  padding: 1rem;
-  border-radius: 14px;
-  border: 1px solid rgba(120, 91, 63, 0.16);
-  background: rgba(255, 250, 243, 0.72);
+  padding: 1rem 0.85rem;
+  border-radius: 12px;
+  border: 1px solid rgba(120, 91, 63, 0.1);
+  background: rgba(255, 250, 243, 0.45);
 }
 
 .index {
   color: #8f5d2c;
-  font-weight: 800;
-  font-size: 0.92rem;
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.14em;
 }
 
 .card h3 {
-  margin: 0.4rem 0;
+  margin: 0.34rem 0 0.5rem;
+  font-size: 1.24rem;
+  line-height: 1.2;
 }
 
 .card p {
   margin: 0;
   color: var(--muted);
+  line-height: 1.75;
 }
 
 @media (min-width: 700px) {

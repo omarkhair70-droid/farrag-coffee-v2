@@ -112,7 +112,7 @@ export default function ProductCatalog({ products, onAddToCart }) {
       </div>
 
       <div className={styles.grid}>
-        {filteredProducts.map((product) => {
+        {filteredProducts.map((product, index) => {
           const quantity = getQuantity(product.id);
           const cardAnimation = isMobile
             ? { initial: false, animate: { opacity: 1, y: 0 } }
@@ -126,11 +126,13 @@ export default function ProductCatalog({ products, onAddToCart }) {
             <motion.article key={product.id} className={styles.card} {...cardAnimation} {...cardHover}>
               <div className={styles.content}>
                 <div className={styles.topRow}>
-                  <h3>{product.name}</h3>
+                  <span className={styles.blendNo}>{String(index + 1).padStart(2, '0')}</span>
                   <span className={styles.typePill}>{product.category} • {product.type}</span>
                 </div>
+                <h3>{product.name}</h3>
                 <p className={styles.description}>{product.description}</p>
                 <p className={styles.suitable}>{getSuitableFor(product)}</p>
+                <p className={styles.signature}>Farrag Blend • طحن طازة</p>
                 <div className={styles.meta}>
                   <strong>{product.price} جنيه</strong>
                   <span>{product.weight}</span>

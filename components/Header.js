@@ -17,7 +17,7 @@ export default function Header() {
     <header className={styles.header}>
       <div className={styles.inner}>
         <a href="#" className={styles.logoWrap}>
-          <Image src="/images/logo.png" alt="بن فراج" width={52} height={52} className={styles.logoImage} priority />
+          <Image src="/images/logo.png" alt="بن فراج" width={46} height={46} className={styles.logoImage} priority />
           <div>
             <span className={styles.logoText}>بن فراج</span>
             <small>قهوة بطابعها</small>
@@ -30,7 +30,7 @@ export default function Header() {
             </a>
           ))}
         </nav>
-        <motion.a href="#products" className="btn btnPrimary" {...premiumButtonMotion}>
+        <motion.a href="#products" className={`btn btnPrimary ${styles.cta}`} {...premiumButtonMotion}>
           اطلب الآن
         </motion.a>
       </div>
