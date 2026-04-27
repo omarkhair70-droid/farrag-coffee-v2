@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
@@ -13,11 +13,47 @@ import WhyFarrag from '../components/WhyFarrag';
 import Cart from '../components/Cart';
 import Reviews from '../components/Reviews';
 import Contact from '../components/Contact';
-import products from '../data/products';
+import { getFallbackProducts, normalizeProducts } from '../lib/products';
 
 export default function HomePage() {
   const [cartItems, setCartItems] = useState([]);
   const [toast, setToast] = useState('');
+  const [products, setProducts] = useState(getFallbackProducts());
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch('/api/products', { cache: 'no-store' });
+        const payload = await response.json();
+
+        if (!response.ok || !Array.isArray(payload.products)) {
+          throw new Error(payload.error || 'Failed to load products.');
+        }
+
+        const normalized = normalizeProducts(payload.products).filter((item) => item.is_active !== false);
+        if (!normalized.length) {
+          throw new Error('No active products.');
+        }
+
+        if (isMounted) {
+          setProducts(normalized);
+        }
+      } catch (error) {
+        console.warn('Falling back to static products:', error);
+        if (isMounted) {
+          setProducts(getFallbackProducts());
+        }
+      }
+    };
+
+    fetchProducts();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const addToCart = (product, quantity = 1, grind = 'ناعم تركي') => {
     const cartKey = `${product.id}::${grind}`;

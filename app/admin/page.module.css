@@ -14,6 +14,10 @@
 
 .header {
   margin-bottom: 1rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.8rem;
 }
 
 .title {
@@ -36,19 +40,27 @@
   border: 1px dashed rgba(91, 58, 34, 0.3);
 }
 
+.panelTitle {
+  margin: 1.2rem 0 0.8rem;
+  color: var(--coffee);
+  font-size: 1.1rem;
+}
+
 .list {
   display: grid;
   gap: 0.9rem;
 }
 
-.orderCard {
+.orderCard,
+.productCard {
   border: 1px solid rgba(200, 164, 98, 0.4);
   border-radius: 14px;
   background: #fff;
   padding: 0.9rem;
 }
 
-.orderTop {
+.orderTop,
+.productTop {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -56,20 +68,46 @@
   margin-bottom: 0.8rem;
 }
 
-.customerName {
+.customerName,
+.productName {
   margin: 0;
   font-size: 1.1rem;
   color: var(--coffee);
 }
 
-.whatsappBtn {
-  background: #22c55e;
-  color: #fff;
+.whatsappBtn,
+.logoutBtn,
+.editBtn,
+.saveBtn,
+.cancelBtn {
+  border: 0;
+  cursor: pointer;
   border-radius: 999px;
   padding: 0.45rem 0.85rem;
   font-weight: 700;
   font-size: 0.85rem;
   white-space: nowrap;
+}
+
+.whatsappBtn {
+  background: #22c55e;
+  color: #fff;
+}
+
+.logoutBtn,
+.cancelBtn {
+  background: rgba(91, 58, 34, 0.12);
+  color: var(--coffee);
+}
+
+.editBtn {
+  background: rgba(200, 164, 98, 0.2);
+  color: var(--coffee);
+}
+
+.saveBtn {
+  background: var(--coffee);
+  color: #fff;
 }
 
 .infoGrid {
@@ -83,7 +121,8 @@
   margin: 0;
 }
 
-.notes {
+.notes,
+.productMeta {
   margin: 0;
   font-size: 0.92rem;
   line-height: 1.6;
@@ -124,12 +163,62 @@
   color: rgba(47, 36, 26, 0.8);
 }
 
+.productsWrap {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.editForm {
+  margin-top: 1rem;
+  border: 1px dashed rgba(91, 58, 34, 0.4);
+  border-radius: 14px;
+  padding: 0.9rem;
+  background: rgba(255, 255, 255, 0.88);
+}
+
+.formGrid {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.formGrid label {
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+}
+
+.formGrid input,
+.formGrid textarea {
+  border: 1px solid rgba(91, 58, 34, 0.25);
+  border-radius: 10px;
+  padding: 0.55rem 0.7rem;
+  font: inherit;
+}
+
+.switchRow {
+  display: flex !important;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.fullWidth {
+  grid-column: 1 / -1;
+}
+
+.formActions {
+  margin-top: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
 @media (min-width: 768px) {
   .section {
     padding: 1.3rem;
   }
 
-  .orderCard {
+  .orderCard,
+  .productCard {
     padding: 1.1rem;
   }
 
@@ -140,5 +229,13 @@
   .itemRow {
     grid-template-columns: 1.5fr 1fr 1fr;
     align-items: center;
+  }
+
+  .productsWrap {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .formGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
