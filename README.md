@@ -1,6 +1,46 @@
 # Farrag Coffee V2
 
-Next.js RTL landing and ordering experience for بن فراج.
+**A premium Arabic/RTL coffee experience combining brand storytelling, guided product choice, catalog discovery, ordering, and admin-backed product management.**
+
+[Live website](https://farrag-coffee-v2.vercel.app) · [Portfolio case study](https://omar-khair-portfolio.vercel.app/work/farrag-coffee)
+
+## Product experience
+
+Farrag Coffee V2 is the current version of the Farrag web work. It evolves the earlier static coffee site into a clearer product and ordering experience built around Arabic-first presentation.
+
+Key product layers include:
+
+- premium RTL brand presentation;
+- coffee/product discovery;
+- guided choice and catalog browsing;
+- cart / ordering flow;
+- WhatsApp-oriented conversion;
+- Supabase-backed product data;
+- server-side admin product management.
+
+## Architecture
+
+```text
+Next.js / React
+      │
+      ├── Arabic / RTL storefront
+      ├── product discovery + ordering
+      └── server-side admin routes
+                │
+                ▼
+             Supabase
+          products / data
+```
+
+## Status
+
+**Current Farrag Coffee web version · live.**
+
+The separate `farrag-coffee` repository is retained only as earlier/evolution evidence and should not be confused with this V2.
+
+---
+
+## Technical setup
 
 ## Run
 
@@ -43,3 +83,4 @@ Run SQL in `supabase/products_setup.sql` inside Supabase SQL editor to:
 - Dashboard: `/admin`
 - Admin session is handled using an HttpOnly signed cookie.
 - Product writes are server-side through `/api/admin/products` using `SUPABASE_SERVICE_ROLE_KEY`.
+
